@@ -1,4 +1,4 @@
-package com.marketdata.MarketSimulatorBackend.model;
+package com.marketdata.MarketSimulatorBackend.api.model;
 
 public class StockPrice {
     private String companyName;
