@@ -10,10 +10,8 @@ import java.util.List;
 @Service
 public class StockService {
 
-    private List<StockPrice> stockList;
-
-    public StockService() {
-        stockList = new ArrayList<>(Arrays.asList(
+    public List<StockPrice> getMockStockPrices() {
+        return new ArrayList<>(Arrays.asList(
                 new StockPrice("Company A", 150, "2024-11-01T10:00:00"),
                 new StockPrice("Company A", 180, "2024-11-01T11:00:00"),
                 new StockPrice("Company A", 210, "2024-11-01T12:00:00"),
