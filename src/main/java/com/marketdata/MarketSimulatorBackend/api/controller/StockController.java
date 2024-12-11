@@ -1,6 +1,6 @@
 package com.marketdata.MarketSimulatorBackend.api.controller;
 
-import com.marketdata.MarketSimulatorBackend.api.model.StockPrice;
+import com.marketdata.MarketSimulatorBackend.model.StockPrice;
 import com.marketdata.MarketSimulatorBackend.service.StockService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

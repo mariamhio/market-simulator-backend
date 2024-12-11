@@ -1,6 +1,6 @@
 package com.marketdata.MarketSimulatorBackend.service;
 
-import com.marketdata.MarketSimulatorBackend.api.model.StockPrice;
+import com.marketdata.MarketSimulatorBackend.model.StockPrice;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
