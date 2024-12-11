@@ -19,7 +19,4 @@ public class StockService {
                 new StockPrice("Company C", 250, "2024-11-01T11:00:00")
         ));
     }
-
-    //make an object of the service inside the controller and return it
-    //public StockPrice getStock(Integer Id) {}
 }

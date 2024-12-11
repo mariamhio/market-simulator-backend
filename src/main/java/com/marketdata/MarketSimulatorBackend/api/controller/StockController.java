@@ -10,12 +10,8 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.Arrays;
 import java.util.List;
 
-/**
- * StockController is a REST controller that provides endpoints
- * to serve stock price data.
- */
 @RestController
-@RequestMapping("/api") // Base URL for all endpoints in this controller
+@RequestMapping("/api")
 public class StockController {
 
     private StockService stockService;
