@@ -22,25 +22,28 @@ public class AlphaVantageProvider implements StockServiceProvider {
         for (String symbol : symbols) {
             try {
                 String url = String.format(
-                        "%s?function=GLOBAL_QUOTE&symbol=%s&apikey=%s",
+                        "%s?function=TIME_SERIES_DAILY&symbol=%s&apikey=%s",
                         ALPHA_VANTAGE_URL, symbol, API_KEY
                 );
 
                 String response = restTemplate.getForObject(url, String.class);
                 JSONObject json = new JSONObject(response);
-                JSONObject globalQuote = json.getJSONObject("Global Quote");
+                JSONObject timeSeries = json.getJSONObject("Time Series (Daily)");
 
-                stockPrices.add(new StockPrice(
-                        globalQuote.getString("01. symbol"),
-                        globalQuote.getDouble("05. price"),
-                        globalQuote.getString("07. latest trading day")
-                ));
+                // Extract the last 7 days of data
+                timeSeries.keys().forEachRemaining(date -> {
+                    JSONObject dailyData = timeSeries.getJSONObject(date);
+                    stockPrices.add(new StockPrice(
+                            symbol,
+                            dailyData.getDouble("4. close"), // Closing price
+                            date
+                    ));
+                });
+
             } catch (Exception e) {
                 System.err.println("Error fetching data for symbol " + symbol + ": " + e.getMessage());
-                throw new RuntimeException("Failed to fetch data for symbol: " + symbol);
             }
         }
-
         return stockPrices;
     }
 }
