@@ -10,7 +10,7 @@ import java.util.List;
 
 @Service
 @Profile("mock")
-public class MockStockProvider implements StockServiceProvider{
+public abstract class MockStockProvider implements StockServiceProvider{
     @Override
     public List<StockPrice> getStockPrices(List<String> symbols) {
         return new ArrayList<>(Arrays.asList(

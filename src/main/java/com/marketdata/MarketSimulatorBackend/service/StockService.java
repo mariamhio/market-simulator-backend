@@ -41,13 +41,28 @@ public class StockService {
     private void updateCache(List<String> symbols) {
         // Fetch data from the provider and update the cache
         for (String symbol : symbols) {
-            List<StockPrice> fetchedData = stockPriceProvider.getStockPrices(List.of(symbol));
+            List<StockPrice> fetchedData;
+            try {
+                fetchedData = stockPriceProvider.getStockPrices(List.of(symbol));
+            } catch (Exception e) {
+                System.err.println("Failed to fetch data for " + symbol + ". Using pseudo data.");
+                fetchedData = getPseudoData(symbol); // Fallback if the provider fails
+            }
             cache.put(symbol, fetchedData);
         }
 
         // Update the last update time
         lastUpdate = LocalDate.now();
         System.out.println("Cache updated at: " + lastUpdate);
+    }
+
+    // Optional fallback pseudo data in StockService
+    private List<StockPrice> getPseudoData(String symbol) {
+        return stockPriceProvider.getStockPrices(List.of(symbol)); // Use provider's fallback
+    }
+
+    public List<String> autocompleteSymbols(String query) {
+        return stockPriceProvider.autocompleteSymbols(query);
     }
 }
 

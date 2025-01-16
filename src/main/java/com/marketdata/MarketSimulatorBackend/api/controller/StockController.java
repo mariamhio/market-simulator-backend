@@ -22,11 +22,15 @@ public class StockController {
         this.stockServiceProvider = stockServiceProvider;
     }
 
+    // Endpoint to fetch stock prices for given symbols
     @GetMapping("/stocks")
     public List<StockPrice> getStockPrices(@RequestParam List<String> symbols) {
-        if (symbols == null || symbols.isEmpty()) {
-            throw new IllegalArgumentException("Symbols parameter is required.");
-        }
         return stockServiceProvider.getStockPrices(symbols);
+    }
+
+    // Endpoint to autocomplete stock symbols
+    @GetMapping("/symbols")
+    public List<String> autocompleteSymbols(@RequestParam String query) {
+        return stockServiceProvider.autocompleteSymbols(query);
     }
 }

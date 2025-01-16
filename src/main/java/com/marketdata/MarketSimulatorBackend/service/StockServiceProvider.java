@@ -6,4 +6,5 @@ import java.util.List;
 
 public interface StockServiceProvider {
     List<StockPrice> getStockPrices(List<String> symbols);
+    List<String> autocompleteSymbols(String query);
 }
