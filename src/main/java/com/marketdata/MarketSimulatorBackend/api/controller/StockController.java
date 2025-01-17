@@ -2,9 +2,11 @@ package com.marketdata.MarketSimulatorBackend.api.controller;
 
 import com.marketdata.MarketSimulatorBackend.model.StockPrice;
 import com.marketdata.MarketSimulatorBackend.service.StockService;
+import com.marketdata.MarketSimulatorBackend.service.StockServiceProvider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Arrays;
@@ -13,19 +15,22 @@ import java.util.List;
 @RestController
 @RequestMapping("/api")
 public class StockController {
-
-    private StockService stockService;
+    private final StockServiceProvider stockServiceProvider;
 
     @Autowired
-    public StockController(StockService stockService) {
-        this.stockService = stockService;
+    public StockController(StockServiceProvider stockServiceProvider) {
+        this.stockServiceProvider = stockServiceProvider;
     }
 
+    // Endpoint to fetch stock prices for given symbols
     @GetMapping("/stocks")
-    public List<StockPrice> getMockStockPrices() {
-        StockService stockService = new StockService();
-        return stockService.getMockStockPrices();
+    public List<StockPrice> getStockPrices(@RequestParam List<String> symbols) {
+        return stockServiceProvider.getStockPrices(symbols);
     }
 
-
+    // Endpoint to autocomplete stock symbols
+    @GetMapping("/symbols")
+    public List<String> autocompleteSymbols(@RequestParam String query) {
+        return stockServiceProvider.autocompleteSymbols(query);
+    }
 }
